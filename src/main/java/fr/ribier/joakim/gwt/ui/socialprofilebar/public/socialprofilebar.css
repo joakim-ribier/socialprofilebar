@@ -1,0 +1,42 @@
+.table-cell {
+	display: table-cell;
+}
+	
+.social-profile-bar-category {
+	color: black;
+ 	font-size: 11px;
+ 	font-family: Arial;
+ 	font-weight: bold;	
+}
+
+.social-profile-vertical-bar-category {
+ 	border-style: solid;
+ 	border-width: 1px;
+ 	border-left: 0px;
+ 	border-right: 0px;
+ 	border-color: #F3F3F3;
+ 	padding: 3px;
+}
+
+.social-profile-vertical-bar-widget {
+	
+}
+
+.social-profile-horizontal-bar-widget {
+	display: table-cell;
+}
+
+.social-profile-horizontal-bar-category {
+	text-align: center;
+	border-style: solid;
+ 	border-width: 1px;
+ 	border-bottom: 0px;
+ 	border-color: #F3F3F3;
+ 	padding: 3px;
+}
+
+.social-profile-vertical-bar-fork-me {
+	padding: 0px;
+	text-align: right;
+	height: 22px;
+}

@@ -1,0 +1,28 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	
+	<ui:style>
+		.social-network-widget {
+			text-align: center;
+			padding: 4px;
+		}
+		.social-network-widget-img {
+			cursor: pointer;
+		}
+		.social-network-widget-text {
+			margin-top: 1px;
+			font-family: Arial;
+			font-size: 11px;
+		}
+	</ui:style>
+	
+	<g:FlowPanel styleName="{style.social-network-widget}">
+	
+		<g:Image ui:field="image" styleName="{style.social-network-widget-img}" />
+		
+		<g:HTML ui:field="html" styleName="{style.social-network-widget-text}" />
+	
+	</g:FlowPanel>
+	
+</ui:UiBinder> 
