@@ -12,18 +12,20 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import fr.ribier.joakim.gwt.ui.socialprofilebar.client.UiBarConfiguration;
+import fr.ribier.joakim.gwt.ui.socialprofilebar.client.gin.SocialProfileBarGinjector;
 import fr.ribier.joakim.gwt.ui.socialprofilebar.client.ui.SocialProfileBarUi;
 import fr.ribier.joakim.gwt.ui.socialprofilebar.shared.beans.SocialProfile;
 import fr.ribier.joakim.gwt.ui.socialprofilebar.shared.beans.SocialProfileCategory;
-import fr.ribier.joakim.gwt.ui.socialprofilebar.shared.utils.CollectionUtils;
 
 public class SocialProfileVerticalBar extends SocialProfileBarUi {
 
 	private static SocialProfileVerticalBarUiBinder uiBinder = GWT.create(SocialProfileVerticalBarUiBinder.class);
 	interface SocialProfileVerticalBarUiBinder extends UiBinder<Widget, SocialProfileVerticalBar> {}
 
+	private final SocialProfileBarGinjector injector = GWT.create(SocialProfileBarGinjector.class);
+
 	@UiField FlowPanel panel;
-	
+
 	public SocialProfileVerticalBar(UiBarConfiguration barUIConfig) {
 		super(barUIConfig);
 	}
@@ -74,7 +76,7 @@ public class SocialProfileVerticalBar extends SocialProfileBarUi {
 		updatesIndex(socialProfiles);
 		if (categoryExist) {
 			Integer index = categoriesIndex.get(socialProfile.getCategory());
-			int size = Iterables.size(CollectionUtils.filter(socialProfiles, socialProfile.getCategory()));
+			int size = Iterables.size(injector.getCollectionUtils().filter(socialProfiles, socialProfile.getCategory()));
 			addSocialProfileWidget(socialProfile, index+size);
 		} else {
 			Integer index = categoriesIndex.get(socialProfile.getCategory());

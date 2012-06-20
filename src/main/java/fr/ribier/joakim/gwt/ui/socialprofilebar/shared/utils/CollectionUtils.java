@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
@@ -15,7 +16,9 @@ import fr.ribier.joakim.gwt.ui.socialprofilebar.shared.beans.SocialProfileCatego
 
 public class CollectionUtils {
 	
-	public static Collection<SocialProfile> copyAndAdd(Collection<SocialProfile> socialProfiles, SocialProfile... elements)  {
+	@VisibleForTesting CollectionUtils() {}
+
+	public Collection<SocialProfile> copyAndAdd(Collection<SocialProfile> socialProfiles, SocialProfile... elements)  {
 		Collection<SocialProfile> copy = copy(socialProfiles);
 		for (SocialProfile element: elements) {
 			copy.add(element);	
@@ -23,16 +26,16 @@ public class CollectionUtils {
 		return copy;
 	}
 	
-	private static Collection<SocialProfile> copy(Collection<SocialProfile> socialProfiles)  {
+	private Collection<SocialProfile> copy(Collection<SocialProfile> socialProfiles)  {
 		return Lists.newArrayList(socialProfiles);
 	}
 	
-	public static Collection<SocialProfile> ascendingOrdered(Collection<SocialProfile> socialProfiles) {
+	public Collection<SocialProfile> ascendingOrdered(Collection<SocialProfile> socialProfiles) {
 		Collection<List<SocialProfile>> orderedPermutations = orderedSocialNetworkCollection(socialProfiles);
 		return orderedPermutations.iterator().next();
 	}
 	
-	private static Collection<List<SocialProfile>> orderedSocialNetworkCollection(Collection<SocialProfile> socialProfiles) {
+	private Collection<List<SocialProfile>> orderedSocialNetworkCollection(Collection<SocialProfile> socialProfiles) {
 		Collection<List<SocialProfile>> orderedPermutations = 
 				Collections2.orderedPermutations(socialProfiles, new Comparator<SocialProfile>() {
 			@Override
@@ -43,7 +46,7 @@ public class CollectionUtils {
 		return orderedPermutations;
 	}
 	
-	public static Iterable<SocialProfile> filter(Collection<SocialProfile> socialProfiles, final SocialProfileCategory category) {
+	public Iterable<SocialProfile> filter(Collection<SocialProfile> socialProfiles, final SocialProfileCategory category) {
 		return Iterables.filter(socialProfiles, new Predicate<SocialProfile>() {
 			@Override
 			public boolean apply(SocialProfile arg0) {

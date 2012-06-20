@@ -3,9 +3,11 @@ package fr.ribier.joakim.gwt.ui.socialprofilebar.client;
 import java.util.Collection;
 
 import com.google.common.base.Preconditions;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Widget;
 
 import fr.ribier.joakim.gwt.ui.socialprofilebar.client.UiBarConfiguration.Align;
+import fr.ribier.joakim.gwt.ui.socialprofilebar.client.gin.SocialProfileBarGinjector;
 import fr.ribier.joakim.gwt.ui.socialprofilebar.client.ui.SocialProfileBarUi;
 import fr.ribier.joakim.gwt.ui.socialprofilebar.client.ui.bar.SocialProfileHorizontalBar;
 import fr.ribier.joakim.gwt.ui.socialprofilebar.client.ui.bar.SocialProfileVerticalBar;
@@ -14,6 +16,9 @@ import fr.ribier.joakim.gwt.ui.socialprofilebar.shared.utils.CollectionUtils;
 
 public class SocialProfileManager {
 	
+	private final SocialProfileBarGinjector injector = GWT.create(SocialProfileBarGinjector.class);
+	private final CollectionUtils collectionUtils = injector.getCollectionUtils();
+
 	private Collection<SocialProfile> socialProfiles;
 	private final SocialProfileBarUi socialProfileBarUi;
 	
@@ -30,7 +35,7 @@ public class SocialProfileManager {
 	
 	public void setModel(Collection<SocialProfile> socialProfiles) {
 		Preconditions.checkState(socialProfiles != null && !socialProfiles.isEmpty());
-		this.socialProfiles = CollectionUtils.ascendingOrdered(socialProfiles);
+		this.socialProfiles = collectionUtils.ascendingOrdered(socialProfiles);
 	}
 	
 	private SocialProfileBarUi configure(UiBarConfiguration uiBarConfig) {
@@ -55,6 +60,6 @@ public class SocialProfileManager {
 	}
 	
 	private void updateModel(SocialProfile socialProfile) {
-		setModel(CollectionUtils.copyAndAdd(this.socialProfiles, socialProfile));
+		setModel(collectionUtils.copyAndAdd(this.socialProfiles, socialProfile));
 	}
 }

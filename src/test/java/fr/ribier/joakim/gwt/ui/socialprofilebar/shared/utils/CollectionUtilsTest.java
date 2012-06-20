@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.collect.Iterables;
@@ -14,7 +15,7 @@ import fr.ribier.joakim.gwt.ui.socialprofilebar.shared.beans.SocialProfileCatego
 import fr.ribier.joakim.gwt.ui.socialprofilebar.shared.utils.CollectionUtils;
 
 public class CollectionUtilsTest {
-	
+
 	private static final SocialProfileCategory CAT_UTILITY = new SocialProfileCategory("Utility", 0);
 	private static final SocialProfileCategory CAT_CODING = new SocialProfileCategory("Coding", 1);
 	private static final SocialProfileCategory CAT_PROFESSIONAL = new SocialProfileCategory("Professional", 2);
@@ -31,10 +32,17 @@ public class CollectionUtilsTest {
 	private static final SocialProfile OHLOH = 
 			new SocialProfile.Builder().title("Ohloh").category(CAT_CODING).build();
 
+	private CollectionUtils collectionUtils;
+
+	@Before
+	public void before() {
+		collectionUtils = new CollectionUtils();
+	}
+
 	@Test
 	public void testAscendingOrderedSocialProfileCollection() {
 		Collection<SocialProfile> orderedCollection = 
-				CollectionUtils.ascendingOrdered(Lists.newArrayList(GITHUB, LINKEDIN, FACEBOOK));
+				collectionUtils.ascendingOrdered(Lists.newArrayList(GITHUB, LINKEDIN, FACEBOOK));
 		
 		Assert.assertEquals(Iterables.get(orderedCollection, 0), FACEBOOK);
 		Assert.assertEquals(Iterables.get(orderedCollection, 1), GITHUB);
@@ -44,7 +52,7 @@ public class CollectionUtilsTest {
 	@Test
 	public void testAscendingOrderedSocialProfileCollectionWithSameCategory() {
 		Collection<SocialProfile> orderedSocialProfils = 
-				CollectionUtils.ascendingOrdered(Lists.newArrayList(GITHUB, LINKEDIN, FACEBOOK, OHLOH));
+				collectionUtils.ascendingOrdered(Lists.newArrayList(GITHUB, LINKEDIN, FACEBOOK, OHLOH));
 		
 		Assert.assertEquals(Iterables.get(orderedSocialProfils, 0), FACEBOOK);
 		Assert.assertEquals(Iterables.get(orderedSocialProfils, 1), GITHUB);
@@ -54,8 +62,8 @@ public class CollectionUtilsTest {
 	
 	@Test
 	public void testFilterSocialProfileCollection() {
-		Iterable<SocialProfile> orderedCollection = 
-				CollectionUtils.filter(Lists.newArrayList(FACEBOOK, GITHUB, OHLOH, LINKEDIN), CAT_CODING);
+		Iterable<SocialProfile> orderedCollection =
+				collectionUtils.filter(Lists.newArrayList(FACEBOOK, GITHUB, OHLOH, LINKEDIN), CAT_CODING);
 		
 		Assert.assertEquals(Iterables.get(orderedCollection, 0), GITHUB);
 		Assert.assertEquals(Iterables.get(orderedCollection, 1), OHLOH);
@@ -64,7 +72,7 @@ public class CollectionUtilsTest {
 	@Test
 	public void testFilterSocialProfileCollectionWithCategoryNotExist() {
 		Iterable<SocialProfile> orderedCollection = 
-				CollectionUtils.filter(Lists.newArrayList(FACEBOOK, GITHUB, OHLOH, LINKEDIN), 
+				collectionUtils.filter(Lists.newArrayList(FACEBOOK, GITHUB, OHLOH, LINKEDIN),
 						new SocialProfileCategory("new category", 4));
 		
 		Assert.assertTrue(Iterables.isEmpty(orderedCollection));
@@ -73,7 +81,7 @@ public class CollectionUtilsTest {
 	@Test
 	public void testCopyAndAddSocialProfileCollection() {
 		List<SocialProfile> list = Lists.newArrayList(FACEBOOK, GITHUB);
-		Iterable<SocialProfile> copy = CollectionUtils.copyAndAdd(list, OHLOH, LINKEDIN);
+		Iterable<SocialProfile> copy = collectionUtils.copyAndAdd(list, OHLOH, LINKEDIN);
 		
 		Assert.assertEquals(Iterables.size(list), 2);
 		Assert.assertEquals(Iterables.size(copy), 4);
